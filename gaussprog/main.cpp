@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
             else matrix[i][j]=0;
 
 		}
-        matrix[i][m]=i;
+        matrix[i][n]=i;
 	}
 
 	cout << "Матрица: " << endl;
