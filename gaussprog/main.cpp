@@ -1,19 +1,16 @@
 #include <iostream>
-
+#include <stdlib.h>
 using namespace std;
 
-int main()
+int main(int argc, char *argv[])
 {
-	int i, j, n, m;
-	cout << " Введите число уравнений: ";
-
-
-	cin >> n;
+    int i, j, n = 4, m;
+    if (argc>1) n=atoi(argv[1]);
+    if (n<1) n=3;
+    cout << " Введите число уравнений: "<<n<<endl;
 	m=n+1;
     float *xx = new float [m];
 	float **matrix = new float *[n];
-
-
 	for (i=0; i<n; i++)
 	{
 		matrix[i] = new float [m];
@@ -24,9 +21,11 @@ int main()
 	{
 		for (j = 0; j<m; j++)
 		{
-			cout << "Элемент " << "[" << i+1 << " , " << j+1 << "]: " ;
-			cin >> matrix[i][j];
+            if (i==j) matrix[i][j]=1;
+            else matrix[i][j]=0;
+
 		}
+        matrix[i][m]=i;
 	}
 
 	cout << "Матрица: " << endl;
