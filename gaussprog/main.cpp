@@ -10,8 +10,9 @@ int main()
 
 	cin >> n;
 	m=n+1;
-
+    float *xx = new float [m];
 	float **matrix = new float *[n];
+
 
 	for (i=0; i<n; i++)
 	{
@@ -40,7 +41,7 @@ int main()
 	}
 	cout << endl;
 
-	float ved_elem, xx[m];
+    float ved_elem;
 	int k;
 	for (i=0; i<n; i++)
 	{
@@ -78,8 +79,12 @@ int main()
 	}
 
 	cout << endl;
-	delete[] matrix;
-
-	return 0;
+    for (i=0; i<n; i++)
+    {
+        delete[] matrix[i] ;
+    }
+    delete[] matrix;
+    delete[] xx;
+    return 0;
 }
 
