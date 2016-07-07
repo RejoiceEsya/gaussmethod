@@ -1,54 +1,23 @@
 #include <iostream>
 #include <stdlib.h>
+#include "gausscalc.h"
 using namespace std;
 
-void gausscalc(float **matrix, int n, float *xx)
-{
-    float ved_elem;
-    int k, i,j;
-    for (i=0; i<n; i++)
-    {
-        ved_elem=matrix[i][i];
-        for (j=n;j>=i;j--){
-            matrix[i][j]/=ved_elem;
-        }
 
-        for (j=i+1;j<n;j++)
-        {
-            ved_elem=matrix[j][i];
-
-            for (k=n;k>=i;k--)
-            {
-                matrix[j][k]-=ved_elem*matrix[i][k];
-            }
-        }
-    }
-
-    xx[n-1] = matrix[n-1][n];
-
-    for (i=n-2; i>=0; i--)
-    {
-        xx[i] = matrix[i][n];
-
-        for (j=i+1;j<n;j++)
-        {
-            xx[i]-=matrix[i][j]*xx[j];
-        }
-    }
-   }
 
 int main(int argc, char *argv[])
 {
-    int i, j, n = 4, m;
+    int i, j, n = 5, m;
     if (argc>1) n=atoi(argv[1]);
     if (n<1) n=3;
     cout << " Введенное число уравнений: "<<n<<endl;
 	m=n+1;
-    float *xx = new float [m];
-	float **matrix = new float *[n];
+    //double h;
+    double *xx = new double [m];
+    double **matrix = new double *[n];
 	for (i=0; i<n; i++)
 	{
-		matrix[i] = new float [m];
+        matrix[i] = new double [m];
 	}
 
 
@@ -62,6 +31,14 @@ int main(int argc, char *argv[])
 		}
         matrix[i][n]=i;
 	}
+   /* for (j=0;j<m;j++)
+    {
+     h=matrix[0][j];
+     matrix[0][j]=matrix[n-1][j];
+     for (int r=0; r<n;r++)
+        if(matrix[i][r]>max) max=matrix[i][r];
+     ved_elem=max;  matrix[n-1][j]=h;
+    }*/
 
     cout << "Матрица: " << endl;
 
