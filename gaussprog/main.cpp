@@ -2,6 +2,41 @@
 #include <stdlib.h>
 using namespace std;
 
+void gausscalc(float **matrix, int n, float *xx)
+{
+    float ved_elem;
+    int k, i,j;
+    for (i=0; i<n; i++)
+    {
+        ved_elem=matrix[i][i];
+        for (j=n;j>=i;j--){
+            matrix[i][j]/=ved_elem;
+        }
+
+        for (j=i+1;j<n;j++)
+        {
+            ved_elem=matrix[j][i];
+
+            for (k=n;k>=i;k--)
+            {
+                matrix[j][k]-=ved_elem*matrix[i][k];
+            }
+        }
+    }
+
+    xx[n-1] = matrix[n-1][n];
+
+    for (i=n-2; i>=0; i--)
+    {
+        xx[i] = matrix[i][n];
+
+        for (j=i+1;j<n;j++)
+        {
+            xx[i]-=matrix[i][j]*xx[j];
+        }
+    }
+   }
+
 int main(int argc, char *argv[])
 {
     int i, j, n = 4, m;
@@ -28,7 +63,7 @@ int main(int argc, char *argv[])
         matrix[i][n]=i;
 	}
 
-	cout << "Матрица: " << endl;
+    cout << "Матрица: " << endl;
 
 	for (i=0; i<n; i++)
 	{
@@ -38,50 +73,21 @@ int main(int argc, char *argv[])
 		}
 		cout << endl;
 	}
-	cout << endl;
+    cout << endl;
 
-    float ved_elem;
-	int k;
-	for (i=0; i<n; i++)
-	{
-		ved_elem=matrix[i][i];
-		for (j=n;j>=i;j--){
-			matrix[i][j]/=ved_elem;
-		}
 
-		for (j=i+1;j<n;j++)
-		{
-			ved_elem=matrix[j][i];
-
-			for (k=n;k>=i;k--)
-			{
-				matrix[j][k]-=ved_elem*matrix[i][k];
-			}
-		}
-	}
-
-	xx[n-1] = matrix[n-1][n];
-
-	for (i=n-2; i>=0; i--)
-	{
-		xx[i] = matrix[i][n];
-
-		for (j=i+1;j<n;j++)
-		{
-			xx[i]-=matrix[i][j]*xx[j];
-        }
-	}
-
-	for (i=0; i<n; i++)
-	{
-		cout << xx[i] << " ";
-	}
-
-	cout << endl;
+    gausscalc(matrix, n, xx);
     for (i=0; i<n; i++)
+    {
+        cout << xx[i] << " ";
+    }
+    cout << endl;
+    for (i=0; i<n; i++)
+
     {
         delete[] matrix[i] ;
     }
+
     delete[] matrix;
     delete[] xx;
     return 0;
